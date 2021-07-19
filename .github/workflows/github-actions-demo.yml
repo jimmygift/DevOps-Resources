@@ -10,6 +10,8 @@ jobs:
           token: ${{secrets.github_token}}        
       - name: Print new build number
         run: echo "Build number is $BUILD_NUMBER"
+      - name: Print Git Hub Run ID
+        run: echo "The GITHUB_RUN_ID $GITHUB_RUN_ID"
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
