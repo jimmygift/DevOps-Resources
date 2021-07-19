@@ -12,6 +12,8 @@ jobs:
         run: echo "Build number is  $BUILD_NUMBER"
       - name: Print Git Hub Run ID
         run: echo "The GITHUB_RUN_ID $GITHUB_RUN_ID"
+      - name: Print Git Hub Run Number 
+        run: echo "The GITHUB_RUN_NUMBER $GITHUB_RUN_NUMBER"
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
