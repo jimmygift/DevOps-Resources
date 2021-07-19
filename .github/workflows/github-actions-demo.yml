@@ -6,6 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
+      - run: echo "NPM Version $(npm version)"
       - run: |
           date >> generated.txt
           echo "$GITHUB_RUN_NUMBER" >> generated.txt
