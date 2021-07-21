@@ -9,6 +9,18 @@ jobs:
       - run: echo "PWD $(pwd)"
       - run: echo "NPM Version $(npm version)"
       - run: echo "AWS CLI Version $(aws --version)"
+      - name: Generate Version String
+        run: |
+          echo "GIT_BUILD=$GITHUB_RUN_ID-$GITHUB_RUN_NUMBER"  >> $GITHUB_ENV
+          echo "GIT_HASH=$(git log --pretty=format:"%h" -1)"  >> $GITHUB_ENV
+          echo "GIT_DATE=$(git log --pretty=format:"%ad" -1)" >> $GITHUB_ENV
+      - name: Update package.json 
+        run: |
+          cd scripts
+          node version_gen.js --githash "${{env.GIT_HASH}}" --gitbuild "${{env.GIT_BUILD}}" --gitdate "${{env.GIT_DATE}}"
+      - name: Create tarball
+      - name: Copy tarball to AWS S3
+      - name: AWS 
       - run: |
           echo "GIT_BUILD=$GITHUB_RUN_ID-$GITHUB_RUN_NUMBER"  >> $GITHUB_ENV
           echo "GIT_HASH=$(git log --pretty=format:"%h" -1)"  >> $GITHUB_ENV
