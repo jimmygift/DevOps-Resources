@@ -19,8 +19,11 @@ jobs:
           cd scripts
           node version_gen.js --githash "${{env.GIT_HASH}}" --gitbuild "${{env.GIT_BUILD}}" --gitdate "${{env.GIT_DATE}}"
       - name: Create tarball
+        run: echo ""
       - name: Copy tarball to AWS S3
+        run: echo ""
       - name: AWS 
+        run: echo ""
       - run: |
           echo "GIT_BUILD=$GITHUB_RUN_ID-$GITHUB_RUN_NUMBER"  >> $GITHUB_ENV
           echo "GIT_HASH=$(git log --pretty=format:"%h" -1)"  >> $GITHUB_ENV
