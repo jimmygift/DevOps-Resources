@@ -17,6 +17,9 @@ jobs:
           echo "GIT_HASH: ${{ env.GIT_HASH }}" 
           echo "BUILD: ${{ env.GIT_BUILD }}"
       - name: AWS Keys
+        env:
+          AWS_ID: ${{ secrets.AWS_ID}}
+          AWS_KEY: ${{ secrets.AWS_KEY}}
         run: |
           echo "AWS_ID: ${{ env.AWS_ID }}" 
           echo "AWS_KEY: ${{ env.AWS_KEY }}"
