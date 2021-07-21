@@ -12,6 +12,7 @@ jobs:
           date >> generated.txt
           echo "$GITHUB_RUN_NUMBER" >> generated.txt
           echo "$GITHUB_RUN_ID" >> generated.txt
+          echo "GIT_HASH $(git log --pretty=format:"%h %ad" -1)" >> generated.txt
           echo "GIT_SHA $(git log --pretty=format:"%h" -1)" >> generated.txt
           git config user.name github-actions
           git config user.email github-actions@github.com
