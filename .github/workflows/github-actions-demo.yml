@@ -15,7 +15,7 @@ jobs:
           echo "GIT_DATE=$(git log --pretty=format:"%ad" -1)" >> $GITHUB_ENV
       - run: |
           cd scripts
-          node version_gen.js --githash "${{env.GIT_HASH}}" --gitbuild "${{env.GIT_BUILD}} --gitdate "${{env.GIT_DATE}}"
+          node version_gen.js --githash "${{env.GIT_HASH}}" --gitbuild "${{env.GIT_BUILD}}" --gitdate "${{env.GIT_DATE}}"
       - name: AWS Keys
         env:
           AWS_ID: ${{secrets.AWS_ID}}
