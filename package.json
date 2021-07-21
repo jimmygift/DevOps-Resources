@@ -31,5 +31,6 @@
 		"winston": "^3.3.3",
 		"winston-syslog": "^2.4.4"
 	},
-	"githash": "--build"
+	"githash": ".GIT_HASH",
+	"build": ".GIT_BUILD"
 }
