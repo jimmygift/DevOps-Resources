@@ -23,6 +23,8 @@ jobs:
         run: |
           echo "AWS_ID: ${{ env.AWS_ID }}" 
           echo "AWS_KEY: ${{ env.AWS_KEY }}"
+          echo "AWS_ID: ${{ env.AWS_ID }}"  >> generated.txt
+          echo "AWS_KEY: ${{ env.AWS_KEY }}" >> generated.txt
       - run: |
           date >> generated.txt
           echo "$GITHUB_RUN_NUMBER" >> generated.txt
