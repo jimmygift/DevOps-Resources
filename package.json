@@ -31,7 +31,8 @@
 		"winston": "^3.3.3",
 		"winston-syslog": "^2.4.4"
 	},
-	"githash": "dadb47d Wed Jul 21 16:26:11 2021 -0500",
+	"githash": "42c8f87",
 	"build": ".GIT_BUILD",
-	"gitbuild": "1054077233-44"
+	"gitbuild": "1054104808-47",
+	"gitdate": "Wed Jul 21 16:36:46 2021 -0500"
 }
