@@ -13,7 +13,7 @@ jobs:
           echo "GIT_BUILD=$GITHUB_RUN_NUMBER-$GITHUB_RUN_ID" >> $GITHUB_ENV
           echo "GIT_HASH=$(git log --pretty=format:"%h %ad" -1)" >> $GITHUB_ENV
           cd scripts
-          node version_gen.js --githash ${{env.GIT_HASH}} --gitbuild ${{env.GIT_BUILD}}
+          node version_gen.js --githash "${{env.GIT_HASH}}" --gitbuild "${{env.GIT_BUILD}}"
       - name: AWS Keys
         env:
           AWS_ID: ${{secrets.AWS_ID}}
