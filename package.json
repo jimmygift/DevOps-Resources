@@ -1,0 +1,35 @@
+{
+  "name": "aws-bkp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "obfuscate": "echo \"Obfuscate script \" ",
+    "get-keys": "echo \"Get Keys script \"; config/get-keys.js ",
+    "config": "echo \"Config script \" ",
+    "versioning" : "scripts/version_gen.js",
+    "update-version" : "echo \"Update to latest version \""
+
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amazon-cognito-identity-js": "^5.0.5",
+    "aws-sdk": "^2.914.0",
+    "compressing": "^1.5.1",
+    "compression": "^1.7.4",
+    "copy-dir": "^1.3.0",
+    "dotenv": "^10.0.0",
+    "fs-extra": "^10.0.0",
+    "mkdirp": "^0.5.5",
+    "multer-s3": "^2.9.0",
+    "node-cron": "^3.0.0",
+    "node-datetime": "^2.1.2",
+    "rsync": "^0.6.1",
+    "systeminformation": "^5.7.4",
+    "uuid": "^3.3.2",
+    "winston": "^3.3.3",
+    "winston-syslog": "^2.4.4"
+  }
+}
