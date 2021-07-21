@@ -6,7 +6,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - name: Print the working directory
       - run: echo "PWD $(pwd)"
       - run: echo "NPM Version $(npm version)"
       - run: echo "AWS CLI Version $(aws --version)"
