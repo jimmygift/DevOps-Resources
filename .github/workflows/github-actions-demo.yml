@@ -24,15 +24,18 @@ jobs:
         run: |
           mkdir dir1
           mkdir dir2
-          mkdir dir3
+          mkdir -p dir3/dir30
           touch dir1/file1
           touch dir2/file21
           touch dir3/file31
           touch dir3/file32
-      - name: Copy tarball to AWS S3
+          touch dir3/dir30/file34
+      - name: Env vars
         run: echo "REPO=$(pwd | awk -F" +|/" '{print $1,$NF}')" >> $GITHUB_ENV
-      - name: AWS 
-        run: echo ""
+      - name: Create tarball
+        run: |
+          cd ..
+          tar  --exclude='dir1/' -zcvf  s3bkp-latest.tgz .
       - run: |
           echo "GIT_BUILD=$GITHUB_RUN_ID-$GITHUB_RUN_NUMBER"  >> $GITHUB_ENV
           echo "GIT_HASH=$(git log --pretty=format:"%h" -1)"  >> $GITHUB_ENV
@@ -55,11 +58,11 @@ jobs:
           echo "$GITHUB_RUN_ID" >> generated.txt
           echo "GIT_HASH $(git log --pretty=format:"%h %ad" -1)" >> generated.txt
           echo "GIT_SHA $(git log --pretty=format:"%h" -1)" >> generated.txt
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m "generated"
-          git push
+          # git config user.name github-actions
+          # git config user.email github-actions@github.com
+          # git add .
+          # git commit -m "generated"
+          # git push
       - name: Generate build number
         uses: einaregilsson/build-number@v3
         with:
