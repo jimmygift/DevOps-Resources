@@ -35,7 +35,7 @@ jobs:
       - name: Create tarball
         run: |
           cd ..
-          tar  --exclude='${{env.REPO}}/.git/*' --exclude='${{env.REPO}}/dir2/*' -zcvf  s3bkp-latest.tgz .
+          tar  -zcvf  s3bkp-latest.tgz --exclude=${{env.REPO}}/.git/* --exclude=${{env.REPO}}/dir2/*  .
           ls -la
       - run: |
           echo "GIT_BUILD=$GITHUB_RUN_ID-$GITHUB_RUN_NUMBER"  >> $GITHUB_ENV
