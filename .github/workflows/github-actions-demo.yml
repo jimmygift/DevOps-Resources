@@ -32,13 +32,11 @@ jobs:
           # touch dir3/dir30/file34
       - name: Env vars
         run: echo "REPO=$(pwd | awk -F" +|/" '{print $1,$NF}')" >> $GITHUB_ENV
-      - name: Create tarball
+      - name: Remove Dirs
         run: |
           ls -la
           rm -r .git; rm -r .github; rm -r dir2
           ls -la
-          cd ..
-          # tar  -zcvf  s3bkp-latest.tgz  ${{env.REPO}}
       - name: Create tarball
         run: |
           cd ..
