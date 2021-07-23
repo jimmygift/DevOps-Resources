@@ -7,7 +7,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - run: echo "PWD $(pwd)"
-      - run: echo "HOME ${{env.HOME}}"
+      - run: echo "HOME ${HOME}"
       - run: echo "NPM Version $(npm version)"
       - run: echo "AWS CLI Version $(aws --version)"
       - name: Generate Version String
