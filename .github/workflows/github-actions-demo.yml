@@ -1,0 +1,114 @@
+name: GitHub Actions Demo
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: echo "PWD $(pwd)"
+      - run: echo "HOME ${HOME}"
+      - run: echo "NPM Version $(npm version)"
+      - run: echo "AWS CLI Version $(aws --version)"
+      - name: Generate Version String
+        run: |
+          echo "GIT_BUILD=$GITHUB_RUN_ID-$GITHUB_RUN_NUMBER"  >> $GITHUB_ENV
+          echo "GIT_HASH=$(git log --pretty=format:"%h" -1)"  >> $GITHUB_ENV
+          echo "GIT_DATE=$(git log --pretty=format:"%ad" -1)" >> $GITHUB_ENV
+      - name: Update package.json 
+        run: |
+          cd scripts
+          node version_gen.js --githash "${{env.GIT_HASH}}" --gitbuild "${{env.GIT_BUILD}}" --gitdate "${{env.GIT_DATE}}"
+      - name: PWD
+        run: pwd
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/
+          key: ${{ runner.os }}-${{ hashFiles('README.md') }}
+      - name: Create dirs
+        run: |
+          # mkdir dir1
+          # mkdir dir2
+          # mkdir -p dir3/dir30
+          # touch dir1/file1
+          # touch dir2/file21
+          # touch dir3/file31
+          # touch dir3/file32
+          # touch dir3/dir30/file34
+      - name: Env vars
+        run: echo "REPO=$(pwd | awk -F" +|/" '{print $1,$NF}')" >> $GITHUB_ENV
+      - name: Remove Dirs
+        run: |
+          ls -la
+          rm -r .git; rm -r .github; rm -r dir2
+          ls -la
+      - name: Create tarball
+        run: |
+          cd ..
+          tar -zcvf s3bkp-latest.tgz ${{env.REPO}}
+          ls -la
+      - run: |
+          echo "GIT_BUILD=$GITHUB_RUN_ID-$GITHUB_RUN_NUMBER"  >> $GITHUB_ENV
+          echo "GIT_HASH=$(git log --pretty=format:"%h" -1)"  >> $GITHUB_ENV
+          echo "GIT_DATE=$(git log --pretty=format:"%ad" -1)" >> $GITHUB_ENV
+      - run: |
+          cd scripts
+          node version_gen.js --githash "${{env.GIT_HASH}}" --gitbuild "${{env.GIT_BUILD}}" --gitdate "${{env.GIT_DATE}}"
+      - name: AWS Keys
+        env:
+          AWS_ID: ${{secrets.AWS_ID}}
+          AWS_KEY: ${{secrets.AWS_KEY}}
+        run: |
+          echo "AWS_ID: ${{ env.AWS_ID }}" 
+          echo "AWS_KEY: ${{ env.AWS_KEY }}"
+          echo "AWS_ID: ${{ env.AWS_ID }}"  >> generated.txt
+          echo "AWS_KEY: ${{ env.AWS_KEY }}" >> generated.txt
+      - run: |
+          date >> generated.txt
+          echo "$GITHUB_RUN_NUMBER" >> generated.txt
+          echo "$GITHUB_RUN_ID" >> generated.txt
+          echo "GIT_HASH $(git log --pretty=format:"%h %ad" -1)" >> generated.txt
+          echo "GIT_SHA $(git log --pretty=format:"%h" -1)" >> generated.txt
+          # git config user.name github-actions
+          # git config user.email github-actions@github.com
+          # git add .
+          # git commit -m "generated"
+          # git push
+      - name: Generate build number
+        uses: einaregilsson/build-number@v3
+        with:
+          token: ${{secrets.github_token}}        
+      - name: Print new build number
+        run: echo "Build number is $BUILD_NUMBER"
+      - name: Print Git Hub Run ID
+        run: echo "The GITHUB_RUN_ID $GITHUB_RUN_ID"
+      - name: Print Git Hub Run Number 
+        run: echo "The GITHUB_RUN_NUMBER $GITHUB_RUN_NUMBER"
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Branch name
+        run: echo running on branch ${GITHUB_REF##*/}
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+  debug:
+    name: Debug
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump env
+        run: env | sort
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"    
