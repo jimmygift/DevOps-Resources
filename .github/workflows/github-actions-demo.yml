@@ -20,6 +20,15 @@ jobs:
           node version_gen.js --githash "${{env.GIT_HASH}}" --gitbuild "${{env.GIT_BUILD}}" --gitdate "${{env.GIT_DATE}}"
       - name: Create tarball
         run: echo ""
+      - name: Create dirs
+        run: |
+          mkdir dir1
+          mkdir dir2
+          mkdir dir3
+          touch dir1/file1
+          touch dir2/file21
+          touch dir3/file31
+          touch dir3/file32
       - name: Copy tarball to AWS S3
         run: echo "REPO=$(pwd | awk -F" +|/" '{print $1,$NF}')" >> $GITHUB_ENV
       - name: AWS 
