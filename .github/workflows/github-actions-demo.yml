@@ -21,7 +21,7 @@ jobs:
       - name: Create tarball
         run: echo ""
       - name: Copy tarball to AWS S3
-        run: echo ""
+        run: echo "REPO=$(pwd | awk -F" +|/" '{print $1,$NF}')" >> $GITHUB_ENV
       - name: AWS 
         run: echo ""
       - run: |
