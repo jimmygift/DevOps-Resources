@@ -18,8 +18,13 @@ jobs:
         run: |
           cd scripts
           node version_gen.js --githash "${{env.GIT_HASH}}" --gitbuild "${{env.GIT_BUILD}}" --gitdate "${{env.GIT_DATE}}"
-      - name: Create tarball
+      - name: test
         run: echo ""
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Create dirs
         run: |
           # mkdir dir1
