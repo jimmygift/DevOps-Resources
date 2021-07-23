@@ -31,15 +31,19 @@ jobs:
           # touch dir3/file32
           # touch dir3/dir30/file34
       - name: Env vars
-        run: echo "REPO=$(pwd | awk -F" +|/" '{print $1,$NF}')" >> $GITHUB_ENV
+        # run: echo "REPO=$(pwd | awk -F" +|/" '{print $1,$NF}')" >> $GITHUB_ENV
       - name: Create tarball
         run: |
           ls -la
           rm -r .git; rm -r .github; rm -r dir2
           ls -la
           cd ..
-          tar  -zcvf  s3bkp-latest.tgz  ${{env.REPO}}
+          # tar  -zcvf  s3bkp-latest.tgz  ${{env.REPO}}
           ls -la
+      - name: Create tarball
+        run: |
+          cd ..
+          tar -zcvf s3bkp-latest.tgz ${{env.REPO}}
       - run: |
           echo "GIT_BUILD=$GITHUB_RUN_ID-$GITHUB_RUN_NUMBER"  >> $GITHUB_ENV
           echo "GIT_HASH=$(git log --pretty=format:"%h" -1)"  >> $GITHUB_ENV
