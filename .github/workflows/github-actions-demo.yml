@@ -40,11 +40,11 @@ jobs:
           ls -la
           cd ..
           # tar  -zcvf  s3bkp-latest.tgz  ${{env.REPO}}
-          ls -la
       - name: Create tarball
         run: |
           cd ..
-          tar -zcvf s3bkp-latest.tgz ${{env.REPO}}
+          tar -zcvf s3bkp-latest.tgz "${{env.REPO}}"
+          ls -la
       - run: |
           echo "GIT_BUILD=$GITHUB_RUN_ID-$GITHUB_RUN_NUMBER"  >> $GITHUB_ENV
           echo "GIT_HASH=$(git log --pretty=format:"%h" -1)"  >> $GITHUB_ENV
