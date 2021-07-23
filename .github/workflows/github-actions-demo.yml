@@ -24,7 +24,7 @@ jobs:
         with:
           path: |
             ~/
-          key: ${{ runner.os }}-${{ hashFiles('package.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('README.md') }}
       - name: Create dirs
         run: |
           # mkdir dir1
