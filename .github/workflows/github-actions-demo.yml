@@ -38,7 +38,7 @@ jobs:
           rm -r .git; rm -r .github; rm -r dir2
           ls -la
           cd ..
-          tar  -zcvf  s3bkp-latest.tgz  .
+          tar  -zcvf  s3bkp-latest.tgz  ${{env.REPO}}
           ls -la
       - run: |
           echo "GIT_BUILD=$GITHUB_RUN_ID-$GITHUB_RUN_NUMBER"  >> $GITHUB_ENV
