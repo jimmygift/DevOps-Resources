@@ -34,8 +34,11 @@ jobs:
         run: echo "REPO=$(pwd | awk -F" +|/" '{print $1,$NF}')" >> $GITHUB_ENV
       - name: Create tarball
         run: |
+          ls -la
+          rm -r .git; rm -r .github; rm -r dir2
+          ls -la
           cd ..
-          tar  -zcvf  s3bkp-latest.tgz --exclude=${{env.REPO}}/.git/* --exclude=${{env.REPO}}/dir2/*  .
+          tar  -zcvf  s3bkp-latest.tgz  .
           ls -la
       - run: |
           echo "GIT_BUILD=$GITHUB_RUN_ID-$GITHUB_RUN_NUMBER"  >> $GITHUB_ENV
